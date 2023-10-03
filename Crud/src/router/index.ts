@@ -20,11 +20,14 @@ const router = createRouter({
     {
       path: '/crud',
       name: 'crud',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/CrudView.vue')
+    },
+    {
+      path: '/update-user/:id',
+      name: 'update-user',
+      component: () => import('../views/UpdateUserView.vue')
     }
+    
   ]
 })
 

@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const users = ref([]);
 const newUser = ref({
@@ -65,16 +68,18 @@ const createUser = async () => {
   }
 };
 
-const updateUser = async (user) => {
+const deleteUser = async (user) => {
   const response = await fetch(`https://fakestoreapi.com/users/${user.id}`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(user),
+    method:'DELETE'
   });
   
   if (response.ok) {
     await getUsers();
   }
+};
+
+const goToUpdateUser = (user) => {
+  router.push(`/update-user/${user.id}`);
 };
 </script>
 
@@ -93,9 +98,9 @@ const updateUser = async (user) => {
 
     <div v-for="user in users" :key="user.id">
       <p>{{ user.name.firstname }} {{ user.name.lastname }}</p>
-      <button @click="updateUser(user)">Actualizar</button>
+      <button @click="goToUpdateUser(user)">Actualizar</button>
+      <button @click="deleteUser(user)">Eliminar</button>
     </div>
   </main>
 </template>
-
 
